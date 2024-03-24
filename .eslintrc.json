@@ -1,3 +1,30 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "no-var": "error",
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
+    "prefer-const": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
 }
