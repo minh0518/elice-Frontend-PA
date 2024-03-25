@@ -1,4 +1,4 @@
-import FilterResults from './_components/_filter/FilterResults';
+import Results from './_components/_result/Results';
 import FilterTable from './_components/_filter/FilterTable';
 import SearchArea from './_components/_search/SearchArea';
 import styles from './page.module.scss';
@@ -8,7 +8,7 @@ export default function Home() {
       <section className={styles.content}>
         <SearchArea />
         <FilterTable />
-        <FilterResults />
+        <Results />
       </section>
     </main>
   );

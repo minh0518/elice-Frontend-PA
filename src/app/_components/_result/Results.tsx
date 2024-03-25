@@ -1,7 +1,9 @@
-import CourseCard from '../_ui/CourseCard';
-import styles from './FilterResults.module.scss';
+'use client';
 
-const FilterResults = () => {
+import CourseCard from '../_ui/CourseCard';
+import styles from './Results.module.scss';
+
+const Results = () => {
   return (
     <section className={styles.container}>
       <div className={styles.total_count}>전체 12개</div>
@@ -16,4 +18,4 @@ const FilterResults = () => {
   );
 };
 
-export default FilterResults;
+export default Results;
