@@ -1,0 +1,25 @@
+@import '@/styles/globals';
+@import '@/styles/mixins';
+
+.category {
+  background-color: $white;
+  display: flex;
+  width: 100%;
+  height: 46px;
+  gap: 30px;
+
+  .left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    background-color: $gray-6;
+  }
+
+  .right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex: 1;
+  }
+}

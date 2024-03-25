@@ -11,6 +11,7 @@
   border-radius: 20px;
   font-size: $font-2;
   background-color: $gray-2;
+  cursor: pointer;
 
   &.clicked {
     background-color: $purple-1;
