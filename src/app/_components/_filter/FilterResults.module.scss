@@ -1,0 +1,22 @@
+@import '@/styles/globals';
+@import '@/styles/mixins';
+
+.container {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.total_count {
+  height: 40px;
+  font-size: $font-1;
+  font-weight: bold;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $gray-2;
+}
+
+.course_cards {
+  margin-top: 30px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
