@@ -1,0 +1,35 @@
+@import '@/styles/globals';
+@import '@/styles/mixins';
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 46px;
+  border: 1px solid rgb(201 202 204);
+  border-radius: 4px;
+
+  ::placeholder {
+    color: $gray;
+    font-weight: bold;
+  }
+
+  &:focus-within {
+    outline: 1px solid $black;
+  }
+
+  .searchIcon {
+    display: flex;
+    align-items: center;
+    margin: 0 16px;
+  }
+
+  .searchInput {
+    margin: 12px 0;
+    border: none;
+    flex: 1;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
