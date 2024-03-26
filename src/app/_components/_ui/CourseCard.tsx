@@ -18,10 +18,8 @@ const CourseCard = ({ title, description, logoFileUrl, enrollType, isFree }: Pro
         {/* 분류 */}
         <p className={styles.classification}>(생략)</p>
         {/* title */}
-        {/* TODO : course.title */}
         <p className={styles.title}>{title}</p>
         {/* description */}
-        {/* TODO : course.short_description */}
         <p className={styles.description}>{description}</p>
         {/* icontext & logo*/}
         <div className={styles.detail}>
@@ -48,10 +46,9 @@ const CourseCard = ({ title, description, logoFileUrl, enrollType, isFree }: Pro
           </ul>
 
           {/* logo */}
-          {/* TODO : course.logo_file_url  */}
           <div className={styles.image_container}>
             {logoFileUrl ? (
-              <Image src={logoFileUrl} fill className={styles.logo} alt="" />
+              <Image src={logoFileUrl} fill className={styles.logo} sizes="52px" alt="" />
             ) : (
               <div className={styles.dummy_img} />
             )}
@@ -60,7 +57,6 @@ const CourseCard = ({ title, description, logoFileUrl, enrollType, isFree }: Pro
       </div>
 
       {/* label */}
-      {/* TODO : course.enroll_type , course.is_free */}
       <p className={styles.label}>{checkLabel(enrollType, isFree)}</p>
     </div>
   );

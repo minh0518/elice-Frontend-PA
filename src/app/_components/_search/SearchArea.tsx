@@ -1,10 +1,49 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './SearchArea.module.scss';
 import { IoSearch } from 'react-icons/io5';
+import useDebounce from '@/app/_hooks/useDebounce';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const SearchArea = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const newSearchParams = new URLSearchParams(searchParams);
+  const [searchValue, setSearchValue] = useState<string>(searchParams.get('keyword') || '');
+  const debouncedSearchText = useDebounce(searchValue, 300);
+
+  useEffect(() => {
+    (function updateQuery() {
+      if (debouncedSearchText !== '') {
+        // 존재하는 쿼리스트링이 없을 때
+        if (!searchParams.toString()) {
+          const url = `?keyword=${debouncedSearchText}`;
+          router.push(url);
+        }
+
+        // 존재하는 쿼리스트링이 있을 때
+        if (searchParams.toString()) {
+          // keyword 쿼리스트링이 있을 때
+          if (searchParams.get(`keyword`)) {
+            newSearchParams.set('keyword', debouncedSearchText);
+            const url = `?${newSearchParams.toString()}`;
+            router.push(url);
+          }
+          // keyword 쿼리스트링이 없을 때
+          if (!searchParams.get(`keyword`)) {
+            const url = `?${searchParams.toString()}&keyword=${debouncedSearchText}`;
+            router.push(url);
+          }
+        }
+      }
+      if (debouncedSearchText === '') {
+        newSearchParams.delete('keyword');
+        const url = `?${newSearchParams.toString()}`;
+        router.push(url);
+      }
+    })();
+  }, [debouncedSearchText]);
+
   return (
     <section className={styles.container}>
       <div className={styles.content}>

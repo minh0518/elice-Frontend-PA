@@ -6,6 +6,7 @@ export type filter_category = typeof FILTER_CATEGORY;
 export interface OrgCourseListResponse {
   courseCount: number;
   courses: {
+    id: string; // UUID
     courseType: number;
     tags: string[];
     title: string;

@@ -1,9 +1,7 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import CourseCard from '../_ui/CourseCard';
 import styles from './Results.module.scss';
-import { OrgCourseListResponse } from '@/types/const';
 import { Fragment } from 'react';
 import { useFetchData } from '@/app/_hooks/useFetchData';
 
@@ -20,9 +18,9 @@ const Results = ({ mappedKey, encodeUrl }: Props) => {
         <>
           <div className={styles.total_count}>전체 {data.courseCount}개</div>
           <div className={styles.course_cards}>
-            {data.courses.map((item, index) => {
+            {data.courses.map((item) => {
               return (
-                <Fragment key={index}>
+                <Fragment key={item.id}>
                   <CourseCard
                     title={item.title}
                     description={item.shortDescriptioin}

@@ -16,7 +16,7 @@ const SingleCategory = ({ categoryInfo }: Props) => {
       <div className={styles.right}>
         {categoryInfo.values.map((item, index) => {
           return (
-            <Fragment key={index}>
+            <Fragment key={item}>
               <Chip
                 query={categoryInfo.query}
                 values={item}

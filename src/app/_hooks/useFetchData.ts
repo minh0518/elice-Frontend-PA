@@ -1,5 +1,6 @@
 import { OrgCourseListResponse } from '@/types/const';
 import { useQuery } from '@tanstack/react-query';
+import { v4 as uuidv4 } from 'uuid';
 
 export const useFetchData = (mappedKey: string, encodeUrl: string) => {
   const { data } = useQuery<OrgCourseListResponse>({
@@ -9,7 +10,18 @@ export const useFetchData = (mappedKey: string, encodeUrl: string) => {
         method: 'GET',
         cache: 'no-store',
       });
-      return await response.json();
+
+      const jsonData: OrgCourseListResponse = await response.json();
+
+      const coursesWithId = jsonData.courses.map((course) => ({
+        ...course,
+        id: uuidv4(),
+      }));
+
+      return {
+        ...jsonData,
+        courses: coursesWithId,
+      };
     },
     staleTime: 60000,
   });
