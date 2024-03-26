@@ -1,20 +1,28 @@
+'use client';
+import Image from 'next/image';
 import styles from './CourseCard.module.scss';
 import { AiFillBulb } from 'react-icons/ai';
+import { checkLabel } from '@/app/_utils/checkLabel';
 
-const CourseCard = () => {
+interface Props {
+  title: string;
+  description: string;
+  logoFileUrl: string;
+  enrollType: number;
+  isFree: boolean;
+}
+const CourseCard = ({ title, description, logoFileUrl, enrollType, isFree }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         {/* 분류 */}
-        <p className={styles.classification}>프로그래밍 기초</p>
+        <p className={styles.classification}>(생략)</p>
         {/* title */}
         {/* TODO : course.title */}
-        <p className={styles.title}>Docker</p>
+        <p className={styles.title}>{title}</p>
         {/* description */}
         {/* TODO : course.short_description */}
-        <p className={styles.description}>
-          도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명도커설명
-        </p>
+        <p className={styles.description}>{description}</p>
         {/* icontext & logo*/}
         <div className={styles.detail}>
           {/* icontext  */}
@@ -41,13 +49,19 @@ const CourseCard = () => {
 
           {/* logo */}
           {/* TODO : course.logo_file_url  */}
-          <div className={styles.logo}>LOGO</div>
+          <div className={styles.image_container}>
+            {logoFileUrl ? (
+              <Image src={logoFileUrl} fill className={styles.logo} alt="" />
+            ) : (
+              <div className={styles.dummy_img} />
+            )}
+          </div>
         </div>
       </div>
 
       {/* label */}
       {/* TODO : course.enroll_type , course.is_free */}
-      <p className={styles.label}>구독</p>
+      <p className={styles.label}>{checkLabel(enrollType, isFree)}</p>
     </div>
   );
 };

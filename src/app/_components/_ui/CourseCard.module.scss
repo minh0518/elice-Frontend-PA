@@ -67,11 +67,22 @@
         }
       }
 
+      .image_container {
+        position: relative;
+        width: 52px;
+        height: 52px;
+      }
+
       .logo {
         object-fit: contain;
         object-position: center;
-        width: 52px;
-        height: 52px;
+      }
+
+      .dummy_img {
+        background-color: $blue-1;
+        border-radius: 30px;
+        width: inherit;
+        height: inherit;
       }
     }
   }
