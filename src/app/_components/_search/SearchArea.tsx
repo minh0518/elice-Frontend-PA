@@ -9,7 +9,7 @@ const SearchArea = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const newSearchParams = new URLSearchParams(searchParams);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState<string>(searchParams.get('keyword') || '');
   const debouncedSearchText = useDebounce(searchValue, 300);
 
   useEffect(() => {
