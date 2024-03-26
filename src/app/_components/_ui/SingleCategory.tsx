@@ -17,7 +17,13 @@ const SingleCategory = ({ categoryInfo }: Props) => {
         {categoryInfo.values.map((item, index) => {
           return (
             <Fragment key={index}>
-              <Chip query={categoryInfo.query} values={item} />
+              <Chip
+                query={categoryInfo.query}
+                values={item}
+                index={index}
+                startIndex={categoryInfo.startIndex}
+                filterInfo={categoryInfo.filterInfo}
+              />
             </Fragment>
           );
         })}
