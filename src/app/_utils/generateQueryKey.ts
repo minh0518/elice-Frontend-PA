@@ -1,30 +1,18 @@
 import { FilterProps } from '../page';
 
 export const generateQueryKey = ({ searchParams }: FilterProps) => {
-  const result = new Map<string, number[]>([
-    ['courseType', []],
-    ['format', []],
-    ['category', []],
-    ['level', []],
-    ['programmingLanguage', []],
-    ['price', []],
-  ]);
-
+  const result = [];
   for (let key in searchParams) {
-    if (result.has(key)) {
-      const exist = result.get(key);
+    const values = searchParams[key as keyof FilterProps['searchParams']];
+    if (!values) continue;
 
-      const values = searchParams[key as keyof FilterProps['searchParams']];
-
-      if (exist && values) {
-        if (Array.isArray(values)) {
-          exist.push(...values.map(Number));
-        } else {
-          exist.push(Number(values));
-        }
-        exist.sort((a, b) => a - b);
-      }
+    if (Array.isArray(values)) {
+      result.push(...values.map(Number));
+    } else {
+      result.push(Number(values));
     }
   }
-  return Array.from(result);
+
+  result.sort((a, b) => a - b);
+  return result;
 };
