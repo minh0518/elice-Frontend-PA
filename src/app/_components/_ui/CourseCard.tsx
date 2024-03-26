@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import styles from './CourseCard.module.scss';
 import { AiFillBulb } from 'react-icons/ai';
+import { checkLabel } from '@/app/_utils/checkLabel';
 
 interface Props {
   title: string;
@@ -60,7 +61,7 @@ const CourseCard = ({ title, description, logoFileUrl, enrollType, isFree }: Pro
 
       {/* label */}
       {/* TODO : course.enroll_type , course.is_free */}
-      <p className={styles.label}>구독</p>
+      <p className={styles.label}>{checkLabel(enrollType, isFree)}</p>
     </div>
   );
 };
