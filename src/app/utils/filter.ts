@@ -43,7 +43,6 @@ export const getFilterCondition = ({ searchParams }: FilterProps) => {
 
   for (let key in searchParams) {
     // 쿼리스트링에 선택된 숫자
-
     const searchParamsNumbers = searchParams[key as keyof FilterProps['searchParams']];
 
     if (searchParamsNumbers) {
@@ -74,7 +73,7 @@ export const getFilterCondition = ({ searchParams }: FilterProps) => {
   }
 
   const shallow = BASE_FILTER.$and.filter((i, index) => {
-    if (index === 0 || index === 3 || index === 8) return true;
+    if (index === 0 || index === 2 || index === 3 || index === 8) return true;
     else {
       return (i as FilterCondition).$or.length;
     }

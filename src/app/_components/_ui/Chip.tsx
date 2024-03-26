@@ -32,7 +32,7 @@ const Chip = ({ query, values, index, startIndex }: Props) => {
     if (existQuery.flag) {
       const shallow = [...eachQuery];
       shallow.splice(existQuery.index, 1);
-      router.replace(`?${shallow.join('&')}`);
+      router.push(`?${shallow.join('&')}`);
     }
 
     if (!existQuery.flag) {
