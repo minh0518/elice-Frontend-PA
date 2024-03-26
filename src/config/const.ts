@@ -22,7 +22,6 @@ export const FILTER_CATEGORY = [
     query: 'category',
     values: ['프로그래밍 기초', '데이터 분석', '웹', '인공지능', '알고리즘'],
     filterInfo: [{ tag_id: 12 }, { tag_id: 13 }, { tag_id: 14 }, { tag_id: 15 }, { tag_id: 16 }],
-
     startIndex: 6,
   },
 
@@ -31,7 +30,6 @@ export const FILTER_CATEGORY = [
     query: 'level',
     values: ['입문', '초급', '중급', '고급'],
     filterInfo: [{ tag_id: 100 }, { tag_id: 101 }, { tag_id: 102 }, { tag_id: 103 }],
-
     startIndex: 11,
   },
 
