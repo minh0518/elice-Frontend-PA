@@ -34,10 +34,6 @@ export default async function Home({ searchParams }: FilterProps) {
     },
   });
   const dehydratedState = dehydrate(queryClient);
-  // const res = await fetch(`http://localhost:3000/api/get/list?encodeUrl=${encodeUrl}`, {
-  //   method: 'GET',
-  //   cache: 'no-store',
-  // });
 
   return (
     <RQProvider>
