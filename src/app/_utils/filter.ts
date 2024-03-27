@@ -1,4 +1,4 @@
-import { FILTER_CATEGORY } from '@/config/const';
+import { ERROR_MESSAGE, FILTER_CATEGORY, INDEX_INFO } from '@/config/const';
 import { FilterProps } from '../page';
 
 type FilterType =
@@ -18,17 +18,12 @@ type BaseFilter = {
   $and: (SearchKeyword | FilterCondition | { is_datetime_enrollable: boolean })[];
 };
 
-export const getFilterCondition = ({ searchParams }: FilterProps) => {
-  const INDEX_INFO = {
-    keyword: 0,
-    courseType: 7,
-    format: 6,
-    category: 1,
-    level: 5,
-    programmingLanguage: 4,
-    price: 3,
-  };
+type IndexInfoKey = keyof typeof INDEX_INFO;
+function isKeyOfIndexInfo(key: any): key is IndexInfoKey {
+  return key in INDEX_INFO;
+}
 
+export const getFilterCondition = ({ searchParams }: FilterProps) => {
   const BASE_FILTER: BaseFilter = {
     $and: [
       { title: '%%' } /** 검색 - 유지  */,
@@ -60,22 +55,26 @@ export const getFilterCondition = ({ searchParams }: FilterProps) => {
       // 카테고리 필터링 처리
       if (Array.isArray(values)) {
         for (let value of values) {
-          // BASE_FILTER에서 변경할 인덱스
-          const updateTargetIndex = INDEX_INFO[key as keyof FilterProps['searchParams']];
+          if (isKeyOfIndexInfo(key)) {
+            // BASE_FILTER에서 변경할 인덱스
+            const updateTargetIndex = INDEX_INFO[key];
 
-          // BASE_FILTER에서 변경할 인덱스의 배열
-          const filterArr = (BASE_FILTER.$and[updateTargetIndex] as FilterCondition).$or;
+            // BASE_FILTER에서 변경할 인덱스의 배열
+            const filterArr = (BASE_FILTER.$and[updateTargetIndex] as FilterCondition).$or;
 
-          // FILTER_CATEGORY에서 현재 쿼리스트링에 맞는 필터링 정보 추출 (깊은복사)
-          const targetCategory = JSON.parse(
-            JSON.stringify(FILTER_CATEGORY.find((item) => item.query === key)),
-          );
+            // FILTER_CATEGORY에서 현재 쿼리스트링에 맞는 필터링 정보 추출 (깊은복사)
+            const targetCategory = JSON.parse(
+              JSON.stringify(FILTER_CATEGORY.find((item) => item.query === key)),
+            );
 
-          if (
-            targetCategory &&
-            targetCategory.filterInfo[value - targetCategory.startIndex] !== undefined
-          ) {
-            filterArr?.push(targetCategory.filterInfo[value - targetCategory.startIndex]);
+            if (
+              targetCategory &&
+              targetCategory.filterInfo[value - targetCategory.startIndex] !== undefined
+            ) {
+              filterArr?.push(targetCategory.filterInfo[value - targetCategory.startIndex]);
+            }
+          } else {
+            throw new Error(ERROR_MESSAGE.WRONG_FILTER_QUERY);
           }
         }
       } else {
@@ -88,7 +87,7 @@ export const getFilterCondition = ({ searchParams }: FilterProps) => {
   const shallow = BASE_FILTER.$and.filter((item, index) => {
     if (index === 2 || index === 3 || index === 8) return true;
     if (index === 0) {
-      return item as SearchKeyword;
+      return item;
     } else {
       return (item as FilterCondition).$or.length;
     }

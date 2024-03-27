@@ -91,5 +91,17 @@ export const GC_TIME = 1000 * 60 * 5;
 export const ERROR_MESSAGE = {
   WRONG_FETCH: '데이터를 불러오는 도중 문제가 발생했습니다.',
   WRONG_URL: 'URL정보를 확인해 주세요.',
+  WRONG_FILTER_QUERY: '필터링 URL이 잘못됐습니다.',
+  NOT_FOUND: 'URL이 존재하지 않습니다.',
   OHTER: '문제가 발생했습니다.',
-};
+} as const;
+
+export const INDEX_INFO = {
+  keyword: 0,
+  courseType: 7,
+  format: 6,
+  category: 1,
+  level: 5,
+  programmingLanguage: 4,
+  price: 3,
+} as const;
