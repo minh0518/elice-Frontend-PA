@@ -1,0 +1,14 @@
+@import '@/styles/globals';
+@import '@/styles/mixins';
+
+.basic {
+  color: $gray-5;
+}
+
+.disabled {
+  color: $gray-8;
+
+  &:hover {
+    cursor: not-allowed;
+  }
+}
