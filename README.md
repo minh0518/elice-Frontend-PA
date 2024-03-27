@@ -1,4 +1,7 @@
 <br />
+
+![image](https://github.com/minh0518/elice-Frontend-PA/assets/78631876/334ef468-2b6f-4a6f-927d-2c4a195b11eb)
+
 <br />
 
 ## 엘리스 Front-end PA (조민호)
@@ -23,6 +26,7 @@ npm install
 npm run dev
 ```
 
+
 <br />
 <br />
 <br />
@@ -36,6 +40,61 @@ npm run dev
 
 ## 요구사항 체크리스트
 
+- [x] NextJS 기반으로 작업을 합니다
+- [x] API server 구현은 NextJS 의 API Routes 기능을 사용하여 구현합니다.
+- [x] course 에 대한 정보는 https://api-rest.elice.io/org/academy/course/list/ 를 이용합니다.
+
+Layout
+- [x] 스크린과 컨테이너 사이에 24px 의 padding 이 있어야 합니다.
+- [x] 크기가 1280px 일 경우부터는 레이아웃의 크기가 1280px 로 중앙정렬되게 고정되어야 합니다.
+- [x] 스크린의 크기가 1280px 미만일 때는 레이아웃이 스크린 전체의 width 를 차지하도록 합니다
+
+Search Area
+- [x] Layout width 100% 를 차지하며 padding 은 위아래 12px 를 가집니다.
+- [x]  Textbox 의 border 는 rgb(201, 202, 204) 의 색과 1px 의 두께, 그리고 4px 의radius 를 가집니다.
+- [x]  Placeholder text 의 색은 CSS gray 로 설정합니다.
+- [x]  상하 12px 의 margin 을 가집니다.
+- [x]  Textbox 왼쪽에는 search icon 이 있습니다
+- [x]  아이콘은 양옆 16px 의 margin 을 가집니다.
+- [x]  Textbox 에서 문자열을 입력 시 문자열을 입력할 때마다 300ms debounced search 를 수행합니다.
+
+Filter
+- [x] 임의의 라이브러리 사용 혹은 직접 구현을 통해, Chip 을 구현합니다.
+- [x] [무료], [유료] 를 모두 선택하거나 하나만 선택, 그리고 아예 선택하지 않을 수 있습니다.
+- [x] 필터는 filter_conditions 파라미터를 이용합니다.(JSON type)
+- [x] 브라우저를 새로고침을하여도 선택된 필터가 유지될수 있도록 url query 를 사용합니다.
+
+Course Card
+- [x] 1232px 기준, 코스 카드 4 개가 들어갈 수 있습니다.
+- [x] 코스 카드 간 gutter size 는 x: 16px, y: 16px 입니다.
+- [x] Pagination 을 수행합니다. 한 페이지당 최대 20 개의 코스 카드를 표시할 수 있도록 합니다
+- [x] w: 296px, h: 338px 입니다.
+- [x] 8px 의 border radius 를 가지며, border 는 없습니다
+- [x] 상하 28px, 좌우 24px 의 padding 을 가집니다
+- [x] 12px 의 size, bold, #524fa1 의 색상을 가진 레이블을 표시합니다.
+- [x] course.enroll_type 및 course.is_free 값에 따라 '무료', '유료', '구독', '관리자 등록' 값을 표시합니다.
+
+Title
+- [x] 폰트 크기는 18px, bold, #222, line height 는 1.6 으로 설정합니다.
+- [x] Title 이 길 경우 최대 라인수는 2 로 표시하며 끝에 … 를 표시합니다
+
+Description
+- [x] 폰트 크기는 14px, #5e5f61, line height 는 1.6 으로 설정합니다.
+- [x] 텍스트가 길 경우 최대 라인수는 2 로 표시하며 끝에 … 를 표시합니다.
+- [x] 아이콘은 24px 의 크기의 임의의 아이콘을 사용합니다.
+- [x] 텍스트는 12px, #7d7e80 의 색상을 가집니다.
+- [x] 아이콘과 텍스트 사이에는 8px 의 space 가 있습니다.
+- [x] 아이콘과 텍스트의 vertical align 은 중앙정렬 되어야 합니다.
+- [x] Body 오른쪽 끝 위치에 align 하여 수업 로고를 표시합니다.
+- [x] 수업 로고의 위치는 첫 번째 IconText 의 상단과 일치합니다.
+- [x] w: 52px, h: 52px 크기를 유지하며 로고의 proportion 이 정사각형이 아닌 경우 정사각형 내에 이미지의 proportion 을 유지하면서 모든 부분이 보이도록 해야 합니다
+
+Pagination
+- [x] 라이브러리를 쓰지 않고 직접 구현해야 합니다.
+- [x] Pagination 숫자는 w: 24px, h : 24px 의 크기를 가진 box 내에 표시합니다.
+- [x] 현재 페이지의 Box 는 #524fa1 의 색을, 이 때 숫자의 색은 white 입니다. 그 외 숫자의 색은 #999 입니다.
+- [x] 현재 페이지 기준 앞쪽으로 최대 4 개, 뒷쪽으로 최대 4 개의 페이지를 더
+- [x] 현재 페이지가 1 이거나 마지막 페이지인 경우 왼쪽/오른쪽 arrow 색은 #ccc그렇지 않으면 #222 의 색을 가집니다
 
 <br />
 <br />
@@ -80,6 +139,7 @@ chore | 기타 작업
 ### 기능 개발 브랜치
 
 > **기능별로 브랜치명을 구분짓습니다**
+> **squash merge를 사용합니다**
 
 <br />
 
