@@ -1,3 +1,4 @@
+import { GC_TIME, STALE_TIME } from '@/config/const';
 import { OrgCourseListResponse } from '@/types/const';
 import { useQuery } from '@tanstack/react-query';
 import { v4 as uuidv4 } from 'uuid';
@@ -32,7 +33,8 @@ export const useFetchData = (
         courses: coursesWithId,
       };
     },
-    staleTime: 60000,
+    staleTime: STALE_TIME,
+    gcTime: GC_TIME,
   });
 
   return data;
