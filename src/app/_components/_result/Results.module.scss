@@ -14,10 +14,6 @@
   }
 
   .course_cards {
-    @media (min-width: 1280px) {
-      width: $content-width;
-    }
-
     margin-top: 30px;
     display: flex;
     gap: 16px;

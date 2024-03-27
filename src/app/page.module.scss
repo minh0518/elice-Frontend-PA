@@ -12,5 +12,11 @@
 }
 
 .content {
-  max-width: $content-width;
+  @media (min-width: 1280px) {
+    width: $content-width;
+  }
+
+  @media (max-width: 1279px) {
+    width: 100%;
+  }
 }
