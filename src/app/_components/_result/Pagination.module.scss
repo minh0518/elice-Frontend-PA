@@ -1,5 +1,29 @@
+@import '@/styles/globals';
+@import '@/styles/mixins';
+
 .container {
   display: flex;
   justify-content: center;
   width: 400px;
+
+  .buttonGroup {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .pageButton {
+      width: 24px;
+      height: 24px;
+    }
+
+    .selcted {
+      background-color: $blue-1;
+      color: $white;
+      border-radius: 5px;
+    }
+
+    .rest {
+      color: $gray-7;
+    }
+  }
 }

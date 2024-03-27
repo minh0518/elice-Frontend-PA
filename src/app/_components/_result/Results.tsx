@@ -2,7 +2,7 @@
 
 import CourseCard from '../_ui/CourseCard';
 import styles from './Results.module.scss';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useFetchData } from '@/app/_hooks/useFetchData';
 import { useSearchParams } from 'next/navigation';
 import Pagination from './Pagination';
@@ -17,6 +17,12 @@ const Results = ({ mappedKey, encodeUrl }: Props) => {
   const [offset, setOffset] = useState(START_OFFSET);
 
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    (function resetOffset() {
+      setOffset(START_OFFSET);
+    })();
+  }, [searchParams]);
 
   const data = useFetchData(
     searchParams.get('keyword'),
@@ -45,9 +51,11 @@ const Results = ({ mappedKey, encodeUrl }: Props) => {
               );
             })}
           </div>
-          <div className={styles.pagination}>
-            <Pagination offset={offset} setOffset={setOffset} totalLength={data.courseCount} />
-          </div>
+          {data.courseCount > 0 && (
+            <div className={styles.pagination}>
+              <Pagination offset={offset} setOffset={setOffset} totalLength={data.courseCount} />
+            </div>
+          )}
         </>
       )}
     </section>

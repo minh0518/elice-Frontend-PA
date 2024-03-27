@@ -5,6 +5,7 @@ import GoLeft from './GoLeft';
 import GoRight from './GoRight';
 import { PAGE_CONTENT_LENGTH, PAGINATION_REST_BUTTON_LENGTH } from '@/config/const';
 import { v4 as uuidv4 } from 'uuid';
+import classNames from 'classnames';
 
 interface Props {
   offset: number;
@@ -42,18 +43,25 @@ const Pagination = ({ offset, setOffset, totalLength }: Props) => {
 
   return (
     <div className={styles.container}>
-      <GoLeft onMoveLeft={() => onMoveLeft(currentIndex)} />
-      {pageArr.slice(sliceStartIndex, sliceEndIndex).map(([index, id]) => (
-        <Fragment key={id}>
-          <button
-            onClick={() => setOffset(index * PAGE_CONTENT_LENGTH)}
-            style={{ width: '40px', height: '40px' }}
-          >
-            {index + 1}
-          </button>
-        </Fragment>
-      ))}
-      <GoRight onMoveRight={() => onMoveRight(currentIndex)} />
+      <div className={styles.buttonGroup}>
+        <GoLeft onMoveLeft={() => onMoveLeft(currentIndex)} />
+
+        {pageArr.slice(sliceStartIndex, sliceEndIndex).map(([index, id]) => (
+          <Fragment key={id}>
+            <button
+              onClick={() => setOffset(index * PAGE_CONTENT_LENGTH)}
+              className={classNames([
+                styles.pageButton,
+                index === currentIndex ? styles.selcted : styles.rest,
+              ])}
+            >
+              {index + 1}
+            </button>
+          </Fragment>
+        ))}
+
+        <GoRight onMoveRight={() => onMoveRight(currentIndex)} />
+      </div>
     </div>
   );
 };
