@@ -1,36 +1,178 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<br />
+<br />
 
-## Getting Started
+## 엘리스 Front-end PA (조민호)
 
-First, run the development server:
+엘리스 프론트엔드 과제 입니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+## 개발 환경
+- node v20.10.0
+- next.js 14.1.4
+
+
+## 설치 및 실행
+
+### 의존성 패키지 설치
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 개발 환경 실행
+```
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<br />
+<br />
+<br />
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+<br />
+<br />
+<br />
 
-To learn more about Next.js, take a look at the following resources:
+## 요구사항 체크리스트
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 컨벤션
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 개발 기록
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## 기술 스택
+
+### 1. Next.js (app router)
+과제 요구사항에 맞춰서 사용했습니다. 서버사이드 패칭 및 서버 컴포넌트를 활용한 로직을 작성했습니다.
+
+<br />
+<br />
+  
+### 2. Typescript
+JS의 타입이슈로 인한 런타임 에러를 방지하고자 도입했습니다.
+
+<br />
+<br />
+  
+### 3. Tanstack-query
+**Tanstack-Query를 사용한 이유는 다음과 같습니다.**
+
+1. 데이터 캐싱을 사용하기 위함입니다.
+
+이번 프로젝트에는 초기 데이터를 렌더링 한 뒤, **필터링 조건 or 페이지네이션에 의해 데이터가 변경이 됩니다.**
+
+이 때마다 매번 새로 데이터를 가져오는 행위는 비효율적이라 생각됐고 캐싱 시스템으로 UX를 개선하고자 했습니다.
+
+
+<br />
+
+2. **Next 서버컴포넌트 캐싱은 현재 상황에 맞지 않다고 생각했습니다.**
+비록 Next 서버컴포넌트의 데이터패칭도 캐싱이 되지만 이 과제에서는 최초 페이지가 그려질 때 패칭한 데이터만 사용하지 않습니다.
+
+여기서는 유저 인터렉션 (Chip버튼 클릭, 페이지네이션 버튼 클릭)에 의해 초기의 데이터가 계속해서 변경되는 상황입니다.
+
+**즉, 최초에 데이터를 패칭해온 다음, 클라이언트 컴포넌트에서 계속해서 변경된 조건에 의해 필터링 된 데이터를 가져와야 합니다. 그렇기 때문에 Tanstack-Query의 캐싱을 이용하기로 했습니다.**
+
+서버 컴포넌트에서 미리 Tanstack-Query로 패칭을 한 다음, 캐싱데이터가 담겨진 `QueryClient`인스턴스를 클라이언트 컴포넌트에서 받아서 사용하는 것입니다.
+
+
+<br />
+<br />
+  
+### 4. scss
+Next 서버 컴포넌트에서는 런타임 CSS-in-JS를 적용할 수 없기 때문에 Vanila-Extract, Scss 중에서 좀더 익숙한 Scss를 사용했습니다.
+
+
+<br />
+<br />
+
+### 5. husky
+일관화된 컨벤션을 강제하고자 도입했습니다.
+
+<br />
+<br />
+
+## 데이터 패칭
+
+데이터 패칭 패턴은 다음과 같습니다.
+1. **서버 컴포넌트에서 Tanstack-Query로 패칭을 진행합니다**
+   
+2. **패칭 데이터가 캐싱된 `QueryClient`인스턴스를 생성하고 클라이언트 컴포넌트( CourseCard,페이지네이션 부분 )에 직렬화해서 넘겨줍니다**
+   > 이후 클라이언트 컴포넌트에서는 `QueryClient`인스턴스를 받아서 동일한 캐싱값을 사용할 수 있게 됩니다
+   (페이지네이션 버튼 이동 및 카테고리 Chip클릭)
+   
+3. **클라이언트 컴포넌트에서 유저 인터렉션이 발생할 때마다 다음의 과정이 진행됩니다**
+   
+   - 카테고리 Chip클릭
+     쿼리스트링이 변경되며 동시에 서버 컴포넌트가 재실행됩니다
+     서버 컴포넌트에서는 항상 변경된 쿼리스트링을 기반으로 필터링 로직을 형성한 뒤 이에 맞는 데이터를 가져옵니다
+     매번 데이터를 받아올 때마다 Tanstack-Query의 캐싱데이터에 추가 됩니다
+     
+   - 페이지네이션 버튼 클릭
+     클라이언트 컴포넌트의 페이지네이션 버튼을 클릭하게 되면 이에 맞는 offset으로 새로운 데이터를 가져옵니다.
+     이때 역시 Tanstack-Query의 캐싱데이터에 추가가 됩니다
+
+   **위의 2가지의 액션에 따라 데이터는 항상 변하지만, 동시에 동일한 조건에 대해서는 Tanstack-Query의 캐싱데이터를 이용하게 됩니다.**
+     
+
+## 에러 핸들링
+
+> **이번 과제에서 사용한 에러 핸들링은 Next.js의 Error Boundary인 `error.tsx`를 사용했습니다.**
+
+<br />
+
+**`error.tsx`를 사용한 이유는 다음과 같습니다.**
+
+- 각 컴포넌트에서 에러가 발생했을 때, 특정 위치마다 에러를 처리하는 것이 아니라
+
+- 상위 컨텍스트인 `error.tsx`로 모든 에러를 던진 다음 이 곳에서 일괄처리를 하기 위함입니다.
+
+<br />
+<br />
+
+
+> **처리한 에러 종류는 다음과 같습니다**
+
+**1. 데이터 패칭 관련 에러**
+
+**2. 필터링 쿼리스트링 유효성에 따른 에러**
+
+**3. 존재하지 않는 페이지 진입**
+
+각 항목에 대한 구현 정보는 [[#19] 에러핸들링 구현](https://github.com/minh0518/elice-Frontend-PA/pull/20)
+
+
+## 폴더구조
+
+
+### app디렉토리 내부 
+- _components
+    > 해당 폴더(=라우팅)에서 사용되는 컴포넌트
+    > 세부 UI기능에 따른 2차 폴더 분리
+
+- _hooks
+    > 해당 폴더(=라우팅)에서 사용되는 공통 커스텀 훅
+    
+- _utils
+    > 해당 폴더(=라우팅)에서 사용되는 공통 유틸 함수
+
+### app디렉토리 외부 
+- types
+    > 전역으로 사용되는 타입 명시
+
+- config
+    > 각종 상수값들과 URL경로(route handler)를 가지고 있는 폴더
+    > **엘리스 api는 서버 컴포넌트로 숨기기 위해 따로 선언은 하지 않았습니다.**
+    
+- service
+    > 데이터 패칭 메소드 선언
+
+- styles
+    > 공통 스타일 변수 선언
+
+    
+## 아쉬운 점
+
