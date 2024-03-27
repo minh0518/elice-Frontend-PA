@@ -31,23 +31,29 @@ const Pagination = ({ offset, setOffset, totalLength }: Props) => {
     .fill(undefined)
     .map((_, index) => [index, uuidv4()]);
 
-  const onClick = (index: number) => {
-    setOffset(index);
+  const onMoveLeft = (index: number) => {
+    if (index === 0) setOffset(0);
+    if (index > 0) setOffset((index - 1) * PAGE_CONTENT_LENGTH);
   };
+  const onMoveRight = (index: number) => {
+    if (index === totalPageCount - 1) setOffset((totalPageCount - 1) * PAGE_CONTENT_LENGTH);
+    if (index < totalPageCount - 1) setOffset((index + 1) * PAGE_CONTENT_LENGTH);
+  };
+
   return (
     <div className={styles.container}>
-      <GoLeft />
+      <GoLeft onMoveLeft={() => onMoveLeft(currentIndex)} />
       {pageArr.slice(sliceStartIndex, sliceEndIndex).map(([index, id]) => (
         <Fragment key={id}>
           <button
-            onClick={() => onClick(index * PAGE_CONTENT_LENGTH)}
+            onClick={() => setOffset(index * PAGE_CONTENT_LENGTH)}
             style={{ width: '40px', height: '40px' }}
           >
             {index + 1}
           </button>
         </Fragment>
       ))}
-      <GoRight />
+      <GoRight onMoveRight={() => onMoveRight(currentIndex)} />
     </div>
   );
 };
