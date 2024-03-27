@@ -8,7 +8,7 @@ import { generateQueryKey } from './_utils/generateQueryKey';
 import RQProvider from './_components/RQProvider';
 import { OrgCourseListResponse } from '@/types/const';
 import { v4 as uuidv4 } from 'uuid';
-import { PAGE_CONTENT_LENGTH, START_OFFSET } from '@/config/const';
+import { ERROR_MESSAGE, PAGE_CONTENT_LENGTH, START_OFFSET } from '@/config/const';
 
 export type FilterProps = {
   searchParams: {
@@ -39,16 +39,22 @@ export default async function Home({ searchParams }: FilterProps) {
           cache: 'no-store',
         },
       );
-      const jsonData: OrgCourseListResponse = await response.json();
-      const coursesWithId = jsonData.courses.map((course) => ({
-        ...course,
-        id: uuidv4(),
-      }));
 
-      return {
-        ...jsonData,
-        courses: coursesWithId,
-      };
+      if (response.ok) {
+        const jsonData: OrgCourseListResponse = await response.json();
+        const coursesWithId = jsonData.courses.map((course) => ({
+          ...course,
+          id: uuidv4(),
+        }));
+
+        return {
+          ...jsonData,
+          courses: coursesWithId,
+        };
+      }
+
+      const errorText = await response.text();
+      throw new Error(errorText || ERROR_MESSAGE.OHTER);
     },
   });
   const dehydratedState = dehydrate(queryClient);
