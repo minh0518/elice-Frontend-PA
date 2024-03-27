@@ -44,7 +44,7 @@ const Pagination = ({ offset, setOffset, totalLength }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.buttonGroup}>
-        <GoLeft onMoveLeft={() => onMoveLeft(currentIndex)} />
+        <GoLeft onMoveLeft={() => onMoveLeft(currentIndex)} disabled={currentIndex === 0} />
 
         {pageArr.slice(sliceStartIndex, sliceEndIndex).map(([index, id]) => (
           <Fragment key={id}>
@@ -60,7 +60,10 @@ const Pagination = ({ offset, setOffset, totalLength }: Props) => {
           </Fragment>
         ))}
 
-        <GoRight onMoveRight={() => onMoveRight(currentIndex)} />
+        <GoRight
+          onMoveRight={() => onMoveRight(currentIndex)}
+          disabled={currentIndex === totalPageCount - 1}
+        />
       </div>
     </div>
   );
