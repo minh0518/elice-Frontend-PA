@@ -78,9 +78,30 @@ export const FILTER_CATEGORY = [
   },
 ] as const;
 
+/** pagination */
 export const START_OFFSET = 0;
 export const PAGE_CONTENT_LENGTH = 20 as const;
 export const PAGINATION_REST_BUTTON_LENGTH = 4 as const;
 
+/** Tanstack-query */
 export const STALE_TIME = 1000 * 60 * 60 * 24;
 export const GC_TIME = 1000 * 60 * 5;
+
+/** errorMessage */
+export const ERROR_MESSAGE = {
+  WRONG_FETCH: '데이터를 불러오는 도중 문제가 발생했습니다.',
+  WRONG_URL: 'URL정보를 확인해 주세요.',
+  WRONG_FILTER_QUERY: '필터링 URL이 잘못됐습니다.',
+  NOT_FOUND: 'URL이 존재하지 않습니다.',
+  OHTER: '문제가 발생했습니다.',
+} as const;
+
+export const INDEX_INFO = {
+  keyword: 0,
+  courseType: 7,
+  format: 6,
+  category: 1,
+  level: 5,
+  programmingLanguage: 4,
+  price: 3,
+} as const;
