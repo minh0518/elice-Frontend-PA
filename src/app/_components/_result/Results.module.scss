@@ -4,23 +4,30 @@
 .container {
   margin-top: 40px;
   width: 100%;
-}
 
-.total_count {
-  height: 40px;
-  font-size: $font-1;
-  font-weight: bold;
-  padding-bottom: 20px;
-  border-bottom: 1px solid $gray-2;
-}
-
-.course_cards {
-  @media (min-width: 1280px) {
-    width: $content-width;
+  .total_count {
+    height: 40px;
+    font-size: $font-1;
+    font-weight: bold;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $gray-2;
   }
 
-  margin-top: 30px;
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  .course_cards {
+    @media (min-width: 1280px) {
+      width: $content-width;
+    }
+
+    margin-top: 30px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0;
+  }
 }

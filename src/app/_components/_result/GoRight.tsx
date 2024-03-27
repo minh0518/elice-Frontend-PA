@@ -1,5 +1,5 @@
 const GoRight = () => {
-  return <div></div>;
+  return <button style={{ width: '40px' }}>R</button>;
 };
 
 export default GoRight;

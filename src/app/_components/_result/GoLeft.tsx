@@ -1,5 +1,5 @@
 const GoLeft = () => {
-  return <div></div>;
+  return <button style={{ width: '40px' }}>L</button>;
 };
 
 export default GoLeft;
