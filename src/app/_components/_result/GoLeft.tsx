@@ -1,3 +1,5 @@
+import { FaChevronLeft } from 'react-icons/fa';
+
 interface Props {
   onMoveLeft: () => void;
 }
@@ -5,7 +7,7 @@ interface Props {
 const GoLeft = ({ onMoveLeft }: Props) => {
   return (
     <button style={{ width: '40px' }} onClick={onMoveLeft}>
-      L
+      <FaChevronLeft width="40px" />
     </button>
   );
 };
