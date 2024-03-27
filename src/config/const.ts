@@ -77,3 +77,7 @@ export const FILTER_CATEGORY = [
     ],
   },
 ] as const;
+
+export const START_OFFSET = 0;
+export const PAGE_CONTENT_LENGTH = 20 as const;
+export const PAGINATION_REST_BUTTON_LENGTH = 4 as const;
