@@ -8,6 +8,7 @@ import { generateQueryKey } from './_utils/generateQueryKey';
 import RQProvider from './_components/RQProvider';
 import { OrgCourseListResponse } from '@/types/const';
 import { v4 as uuidv4 } from 'uuid';
+import { PAGE_CONTENT_LENGTH, START_OFFSET } from '@/config/const';
 
 export type FilterProps = {
   searchParams: {
@@ -29,10 +30,10 @@ export default async function Home({ searchParams }: FilterProps) {
 
   const queryClient = new QueryClient();
   await queryClient.fetchQuery({
-    queryKey: ['selected', searchWord || null, mappedKey, 0, 20],
+    queryKey: ['selected', searchWord || null, mappedKey, START_OFFSET, PAGE_CONTENT_LENGTH],
     queryFn: async () => {
       const response = await fetch(
-        `http://localhost:3000/api/get/list?encodeUrl=${encodeUrl}&offset=${0}&count=${20}`,
+        `http://localhost:3000/api/get/list?encodeUrl=${encodeUrl}&offset=${START_OFFSET}&count=${PAGE_CONTENT_LENGTH}`,
         {
           method: 'GET',
           cache: 'no-store',

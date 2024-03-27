@@ -5,10 +5,12 @@ const ELICE_SERVICE_BASE_URL = 'https://api-rest.elice.io/org/academy/course/lis
 
 export async function GET(request: NextRequest) {
   const encodeUrl = request.nextUrl.searchParams.get('encodeUrl');
+  const offset = request.nextUrl.searchParams.get('offset');
+  const count = request.nextUrl.searchParams.get('count');
 
   if (encodeUrl) {
     const fetchResponse = await fetch(
-      `${ELICE_SERVICE_BASE_URL}/?filter_conditions=${encodeURIComponent(encodeUrl)}&sort_by=created_datetime.desc&offset=0&count=20`,
+      `${ELICE_SERVICE_BASE_URL}/?filter_conditions=${encodeURIComponent(encodeUrl)}&sort_by=created_datetime.desc&offset=${offset}&count=${count}`,
       {
         method: 'GET',
         cache: 'no-store',
