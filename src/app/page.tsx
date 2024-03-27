@@ -6,9 +6,8 @@ import { getFilterCondition } from './_utils/filter';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { generateQueryKey } from './_utils/generateQueryKey';
 import RQProvider from './_components/RQProvider';
-import { OrgCourseListResponse } from '@/types/const';
-import { v4 as uuidv4 } from 'uuid';
-import { ERROR_MESSAGE, PAGE_CONTENT_LENGTH, START_OFFSET } from '@/config/const';
+import { PAGE_CONTENT_LENGTH, START_OFFSET } from '@/config/const';
+import { filteredDataApi } from '@/service/service';
 
 export type FilterProps = {
   searchParams: {
@@ -32,29 +31,7 @@ export default async function Home({ searchParams }: FilterProps) {
   await queryClient.fetchQuery({
     queryKey: ['selected', searchWord || null, mappedKey, START_OFFSET, PAGE_CONTENT_LENGTH],
     queryFn: async () => {
-      const response = await fetch(
-        `http://localhost:3000/api/get/list?encodeUrl=${encodeUrl}&offset=${START_OFFSET}&count=${PAGE_CONTENT_LENGTH}`,
-        {
-          method: 'GET',
-          cache: 'no-store',
-        },
-      );
-
-      if (response.ok) {
-        const jsonData: OrgCourseListResponse = await response.json();
-        const coursesWithId = jsonData.courses.map((course) => ({
-          ...course,
-          id: uuidv4(),
-        }));
-
-        return {
-          ...jsonData,
-          courses: coursesWithId,
-        };
-      }
-
-      const errorText = await response.text();
-      throw new Error(errorText || ERROR_MESSAGE.OHTER);
+      return await filteredDataApi.getFilteredData(encodeUrl, START_OFFSET, PAGE_CONTENT_LENGTH);
     },
   });
   const dehydratedState = dehydrate(queryClient);
