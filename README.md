@@ -39,7 +39,91 @@ npm run dev
 ## 컨벤션
 
 
+<details><summary><h3>Commit 컨벤션</h3></summary>
+  
+### 기능 구현 Commit
+
+```
+[commit type]: [commit message]
+
+# example
+feat: 로그인 구현
+```
+
+<br>
+<br>
+
+타입 | 설명
+-- | --
+feat | 새 기능 구현
+fix | 버그 수정
+docs | 문서/주석 관련 작업
+refactor | 리팩토링
+test | 테스트 관련 작업
+style | 디자인 관련 작업
+chore | 기타 작업
+
+
+
+</details>
+
+
+<details><summary><h3>브랜치 컨벤션</h3></summary>
+  
+
+### 기능 개발 브랜치
+
+> **기능별로 브랜치명을 구분짓습니다**
+
+<br />
+
+기능 개발 브랜치명은 다음과 같습니다
+- 브랜치의 의미를 알 수 있도록 어느 기능에 대한 것인지 브랜치 명에 기재합니다
+
+- 추상적인 부분을 덜어내기 위해 브랜치가 어느 기능을 의미하는지 prefix와 함께 기능 명을 작성합니다
+
+
+
+<br />
+
+**prefix 종류들**
+
+타입 | 설명
+-- | --
+feat | 새 기능 구현
+fix | 버그 수정
+docs | 문서/주석 관련 작업
+refactor | 리팩토링
+test | 테스트 관련 작업
+style | 디자인 관련 작업
+chore | 기타 작업
+
+<br>
+<br>
+
+ex)
+```
+chore/ESLint,prettier_setting
+
+feat/main_page_login_button
+
+style/my_page_profile_image
+
+docs/README.md_techstack
+
+```
+
+
+
+
+</details>
+
+
+
 ## 개발 기록
+
+
+[🪡 PR 로그 ](https://github.com/minh0518/elice-Frontend-PA/pulls?q=is%3Apr+is%3Aclosed)
 
 
 
@@ -145,8 +229,72 @@ Next 서버 컴포넌트에서는 런타임 CSS-in-JS를 적용할 수 없기 �
 각 항목에 대한 구현 정보는 [[#19] 에러핸들링 구현](https://github.com/minh0518/elice-Frontend-PA/pull/20)
 
 
+
 ## 폴더구조
 
+<details><summary><h3>폴더 구조</h3></summary>
+  
+```tsx
+📦src
+ ┣ 📂app
+ ┃ ┣ 📂api
+ ┃ ┃ ┗ 📂get
+ ┃ ┃ ┃ ┗ 📂list
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┣ 📂[...path]
+ ┃ ┃ ┣ 📜page.module.scss
+ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📂_components
+ ┃ ┃ ┣ 📂_filter
+ ┃ ┃ ┃ ┣ 📜FilterTable.module.scss
+ ┃ ┃ ┃ ┗ 📜FilterTable.tsx
+ ┃ ┃ ┣ 📂_result
+ ┃ ┃ ┃ ┣ 📜Arrow.module.scss
+ ┃ ┃ ┃ ┣ 📜GoLeft.tsx
+ ┃ ┃ ┃ ┣ 📜GoRight.tsx
+ ┃ ┃ ┃ ┣ 📜Pagination.module.scss
+ ┃ ┃ ┃ ┣ 📜Pagination.tsx
+ ┃ ┃ ┃ ┣ 📜Results.module.scss
+ ┃ ┃ ┃ ┗ 📜Results.tsx
+ ┃ ┃ ┣ 📂_search
+ ┃ ┃ ┃ ┣ 📜SearchArea.module.scss
+ ┃ ┃ ┃ ┗ 📜SearchArea.tsx
+ ┃ ┃ ┣ 📂_ui
+ ┃ ┃ ┃ ┣ 📜Chip.module.scss
+ ┃ ┃ ┃ ┣ 📜Chip.tsx
+ ┃ ┃ ┃ ┣ 📜CourseCard.module.scss
+ ┃ ┃ ┃ ┣ 📜CourseCard.tsx
+ ┃ ┃ ┃ ┣ 📜SingleCategory.module.scss
+ ┃ ┃ ┃ ┗ 📜SingleCategory.tsx
+ ┃ ┃ ┗ 📜RQProvider.tsx
+ ┃ ┣ 📂_hooks
+ ┃ ┃ ┣ 📜useDebounce.ts
+ ┃ ┃ ┗ 📜useFetchData.ts
+ ┃ ┣ 📂_utils
+ ┃ ┃ ┣ 📜checkLabel.ts
+ ┃ ┃ ┣ 📜filter.ts
+ ┃ ┃ ┗ 📜generateQueryKey.ts
+ ┃ ┣ 📜error.module.scss
+ ┃ ┣ 📜error.tsx
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜globals.css
+ ┃ ┣ 📜layout.tsx
+ ┃ ┣ 📜page.module.scss
+ ┃ ┗ 📜page.tsx
+ ┣ 📂config
+ ┃ ┣ 📜const.ts
+ ┃ ┗ 📜path.ts
+ ┣ 📂service
+ ┃ ┗ 📜service.ts
+ ┣ 📂styles
+ ┃ ┣ 📜globals.scss
+ ┃ ┗ 📜mixins.scss
+ ┗ 📂types
+ ┃ ┗ 📜const.ts
+
+```
+
+</details>
 
 ### app디렉토리 내부 
 - _components
